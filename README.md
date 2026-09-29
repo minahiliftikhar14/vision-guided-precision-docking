@@ -1,7 +1,10 @@
 # 🛸 Vision-Guided Precision Docking System
 
 > Autonomous Drone Docking via Real-Time Spatial Tracking & Markov Decision Process (MDP) Bellman Oscillation Optimization Engine
-
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)
+![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-green.svg)
+![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-red.svg)
+![Control Theory](https://img.shields.io/badge/Control-MDP%20%26%20Bellman-purple.svg)
 ---
 
 ## 📌 Executive Overview
@@ -15,6 +18,16 @@ This project implements a Two-Layer Hybrid Control & Perception Architecture:
 ---
 
 ## 🏗️ System Architecture & Mathematical Pipeline
++------------------+     +------------------------+     +----------------------------+
+|  Camera Feed     | --> | Perception Layer       | --> | MDP Decision Engine        |
+|  (Raw Frame)     |     | (Spatial Offset Tracker)|     | (Bellman Optimisation)     |
++------------------+     +------------------------+     +----------------------------+
+                                                               |
+                                                               v
+                                                +----------------------------+
+                                                | Real-Time Control Action   |
+                                                | & Streamlit Dashboard HUD  |
+                                                +----------------------------+
 
 ### 1. Spatial State Extraction (Perception)
 The tracker evaluates the target centroid relative to the drone frame center to generate a 4D state vector S_t:
@@ -36,12 +49,13 @@ R(S_t, A_t) = - ( alpha * sqrt(e_x^2 + e_y^2) + beta * sqrt(e_dot_x^2 + e_dot_y^
 ---
 
 ## 📂 Repository Structure
-
-- webdash.py : Streamlit UI Dashboard & HUD Telemetry Visualizer
-- spatial_tracker.py : Computer Vision Perception Module (OpenCV)
-- mdp_solver.py : Dynamic Programming MDP & Bellman Optimization Engine
-- .streamlit/config.toml : Streamlit Custom Theme Configuration (Royal Blue)
-- README.md : Project Documentation & Research Overview
+│
+├── webdash.py          # Streamlit UI Dashboard & HUD Telemetry Visualizer
+├── spatial_tracker.py  # Computer Vision Perception Module (OpenCV)
+├── mdp_solver.py       # Dynamic Programming MDP & Bellman Optimization Engine
+├── .streamlit/
+│   └── config.toml     # Streamlit Custom Theme Configuration (Royal Blue Theme)
+└── README.md           # Project Documentation & Research Overview
 
 ---
 
@@ -60,6 +74,7 @@ pip install streamlit opencv-python numpy matplotlib
 streamlit run webdash.py
 
 ---
+📊 Live HUD & Telemetry FeaturesPerception HUD: Live bounding boxes, drift vector arrows, and alignment target reticle overlays.State Vector Monitor: Dynamic calculation of $e_x, e_y$ positional offsets in real time.Live Convergence Curves: Dynamic Matplotlib plots showing Bellman value reward convergence and drift reduction over time.🌟 Key Research ContributionsReduced Oscillation Rate: Eliminates rapid target overshoot by factoring drift acceleration ($\beta$) directly into the Bellman reward function.Lightweight Real-Time Control: Achieves low-latency decision cycles suitable for onboard edge devices (Raspberry Pi / Jetson Nano).
 
 ## 🌟 Key Research Contributions
 
